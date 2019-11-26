@@ -1,32 +1,53 @@
 import sys
+from time import sleep
 import pygame
 from pygame import *
 
 pygame.init()
 
-size = width, height = 700, 450
-speed = 1
-# Start at middle of the screen and extend in 
-middle = width / 2, height / 2
-head = Rect(middle[0], middle[1], 5, 5)
+size = width, height = 240, 160
+speed = x_speed, y_speed = width // 15, height // 15
 
-print(head)
+# Start at middle of the screen and extend in 
+middle = 10, 20 # width / 2, height / 2
+head = pygame.Surface([25, 25])
+color = (255, 0, 0)
+head.fill(color)
+
+head_rect = head.get_rect()
+head_rect.left, head_rect.top = 10, 10
 
 screen = pygame.display.set_mode(size)
 
 background = pygame.Surface(screen.get_size()).convert()
-background.fill((250, 250, 250))
+background.fill((255, 255, 255))
 
 screen.blit(background, (0, 0))
 pygame.display.flip()
 
+pygame.draw.rect(background, (0, 0, 0), head_rect)
+pygame.display.flip()
+
+
 while 1:
+    print(pygame.event.peek())
     for event in pygame.event.get():
         if event.type == QUIT:
             sys.exit()
 
-    head.left = head.left - speed
-    head.right = head.right - speed
-    screen.blit(background, head)
+    old_head_rect = head_rect
+    # Blit over the old loc with a rect of equal size in the same color as BG
+    # Else we retain a tail onto the background of the rect as it moves
+    
+    # Get the x, y of the old rect as a surface of same color as BG and blit it over 
+    screen.blit()
+
+    head_rect.left = head_rect.left + x_speed
+    head_rect.right = head_rect.right + y_speed
+
+    print(f'blitting head_rect at ({head_rect.left}, {head_rect.top})')
+    
+    screen.blit(background, head_rect)
     pygame.display.flip()
+    sleep(.5)
 
