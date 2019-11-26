@@ -3,9 +3,10 @@ from time import sleep
 import pygame
 from pygame import *
 
+
 pygame.init()
 
-size = width, height = 240, 160
+size = width, height = 720, 640
 speed = x_speed, y_speed = width // 15, height // 15
 
 # Start at middle of the screen and extend in 
@@ -28,7 +29,6 @@ pygame.display.flip()
 pygame.draw.rect(background, (0, 0, 0), head_rect)
 pygame.display.flip()
 
-
 while 1:
     print(pygame.event.peek())
     for event in pygame.event.get():
@@ -40,13 +40,11 @@ while 1:
     # Else we retain a tail onto the background of the rect as it moves
     
     # Get the x, y of the old rect as a surface of same color as BG and blit it over 
-    screen.blit()
-
-    head_rect.left = head_rect.left + x_speed
-    head_rect.right = head_rect.right + y_speed
-
-    print(f'blitting head_rect at ({head_rect.left}, {head_rect.top})')
+    # screen.blit()
+    new_pos = (head_rect.left + x_speed, head_rect.top)
     
+    print(f'blitting head_rect at ({head_rect.left}, {head_rect.top})')
+    head_rect.move(new_pos) 
     screen.blit(background, head_rect)
     pygame.display.flip()
     sleep(.5)
