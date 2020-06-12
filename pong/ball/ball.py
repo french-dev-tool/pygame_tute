@@ -19,12 +19,12 @@ class Ball:
         self.speed = INITIAL_BALL_SPEED
         self.color = (255, 0, 255)
 
-    def update_position():
+    def update_position(self):
         """Updates the position of the ball.
         """
         pass
 
-    def show():
+    def show(self):
         """Shows the ball's current position.
         """
         pass

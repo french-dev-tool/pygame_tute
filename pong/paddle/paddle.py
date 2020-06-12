@@ -24,12 +24,12 @@ class Paddle:
         """
         self.coords[1] = self.coords[1] + distance
 
-    def update_position():
+    def update_position(self):
         """Updates the position of the ball.
         """
         pass
 
-    def show():
-        """Shows the ball's current position.
+    def show(self):
+        """Shows the paddle's current position.
         """
         pass
