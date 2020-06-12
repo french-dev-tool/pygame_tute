@@ -17,3 +17,14 @@ class Ball:
         self.coords = [0, 0]
         self.radius = INITIAL_BALL_RAD
         self.speed = INITIAL_BALL_SPEED
+        self.color = (255, 0, 255)
+
+    def update_position():
+        """Updates the position of the ball.
+        """
+        pass
+
+    def show():
+        """Shows the ball's current position.
+        """
+        pass

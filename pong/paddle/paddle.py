@@ -23,3 +23,13 @@ class Paddle:
         within the bounds of the board
         """
         self.coords[1] = self.coords[1] + distance
+
+    def update_position():
+        """Updates the position of the ball.
+        """
+        pass
+
+    def show():
+        """Shows the ball's current position.
+        """
+        pass
