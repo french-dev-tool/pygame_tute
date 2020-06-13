@@ -8,7 +8,6 @@ from math import floor
 import pygame
 from utils.constants import (
     INITIAL_BALL_RAD,
-    INITIAL_BALL_SPEED,
     INITIAL_BALL_POS
 )
 
@@ -18,10 +17,10 @@ class Ball:
     and last hitter.
     """
 
-    def __init__(self, speed):
+    def __init__(self, speed, difficulty):
         """Initialises the ball with a speed and a
         radius of INITIAL_BALL_RAD pixels
-        
+
         Args:
             Speed (speed): A tuple containing integer values for (x_speed, y_speed)
         """
@@ -30,7 +29,7 @@ class Ball:
         self.diameter = 2 * INITIAL_BALL_RAD
         self.speed = speed # Tuple, (x, y) of speed
         # TODO implement speed modifier changes based on difficulty/pickups
-        self.speed_modifier = 0.1
+        self.speed_modifier = difficulty
         # V: 1 for down, -1 for up; H: 1 for right, -1 for left
         self.direction = {'V': 1, 'H': 1}
         self.color = (255, 0, 255)

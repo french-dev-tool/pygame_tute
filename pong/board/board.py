@@ -17,16 +17,13 @@ class Board:
         self.height = screen.get_height()
         self.width = screen.get_width()
         self.borders = {
-            Border('t'): pygame.draw.rect(self.screen, border_color,
-                                          pygame.Rect((0, 0),
-                                                      (BOARD_WIDTH, BORDER_THICKNESS))),
-            Border('b'): pygame.draw.rect(self.screen, border_color,
-                                          pygame.Rect(border_b_origin,
-                                                      (BOARD_WIDTH, BORDER_THICKNESS))),
-            Border('r'): pygame.draw.rect(self.screen, border_color,
-                                          pygame.Rect(border_r_origin,
-                                                      (BORDER_THICKNESS,
-                                                       BOARD_HEIGHT - BORDER_THICKNESS)))
+            Border('t'): pygame.Rect((0, 0),
+                                     (BOARD_WIDTH, BORDER_THICKNESS)),
+            Border('b'): pygame.Rect(border_b_origin,
+                                     (BOARD_WIDTH, BORDER_THICKNESS)),
+            Border('r'): pygame.Rect(border_r_origin,
+                                     (BORDER_THICKNESS,
+                                     BOARD_HEIGHT - BORDER_THICKNESS))
         }
         self.player = player
         self.balls = balls
