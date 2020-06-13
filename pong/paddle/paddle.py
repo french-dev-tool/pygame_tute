@@ -26,8 +26,7 @@ class Paddle:
         """Increments the player's score by one
         """
         self.score = self.score + 1
-        print(self.score)
-
+        
 
     def move_paddle(self, direction):
         """Moves the paddle some distance in the vertical axis as long as
