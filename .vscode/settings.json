@@ -2,7 +2,11 @@
     "editor.tabSize": 4,
     "editor.folding": true,
     "python.pythonPath": "~\\.virtualenvs\\pygame_tute-ObP3HGBF\\Scripts\\python.exe",
-    "python.linting.pylintEnabled": true,
+    "python.linting.pylintEnabled": false,
     "python.linting.enabled": true,
-    "python.linting.pylintArgs": ["--extension-pkg-whitelist=pygame"]
+    "python.linting.pylintArgs": [
+        "--extension-pkg-whitelist=pygame"
+    ],
+    "python.formatting.provider": "autopep8",
+    "editor.formatOnSave": true
 }
