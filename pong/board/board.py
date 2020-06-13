@@ -1,56 +1,61 @@
 """Board class of the pong game
 """
 import pygame
+from utils.constants import BOARD_WIDTH, BOARD_HEIGHT, BORDER_THICKNESS
 
+border_color = pygame.Color("yellow")
+border_b_origin = (0, BOARD_HEIGHT - BORDER_THICKNESS)
+border_r_origin = (BOARD_WIDTH - BORDER_THICKNESS, 0 + BORDER_THICKNESS)
 
 class Board:
     """Board for the player or players to play on as a surface"""
 
-    def __init__(self, screen, height, width, border_t, border_b, player_one, player_two, ball):
+    def __init__(self, screen, player, ball):
         """Initialise the board with height and width specified in utils.constants"""
         self.screen = screen
-        self.height = height
-        self.width = width
-        self.border_t = border_t
-        self.border_b = border_b
-        self.player_one = player_one
-        self.player_two = player_two
-        if player_two is None:
-            self.player_count = 1
-        else:
-            self.player_count = 2
+        self.height = screen.get_height()
+        self.width = screen.get_width()
+        self.borders = {
+            't': pygame.draw.rect(self.screen, border_color,
+                                  pygame.Rect((0, 0),
+                                              (BOARD_WIDTH, BORDER_THICKNESS))),
+            'b': pygame.draw.rect(self.screen, border_color,
+                                  pygame.Rect(border_b_origin,
+                                              (BOARD_WIDTH, BORDER_THICKNESS))),
+            'r': pygame.draw.rect(self.screen, border_color,
+                                  pygame.Rect(border_r_origin,
+                                              (BOARD_HEIGHT - BORDER_THICKNESS,
+                                               BORDER_THICKNESS)))
+        }
+        self.player = player
         self.ball = ball
 
-    def update_score(self, ball_collided_with):
-        """Update the score of the paddle that opposes the side of the board
-        that the ball collides with
+    def determine_collision(self):
+        """Returns true if the ball collides with the paddle
         """
-        if ball_collided_with == 'left_wall':
-            # update right paddle
-            self.player_two.score = self.player_two.score + 1
-
-        else:
-            # update left paddle
-            self.player_one.score = self.player_one.score + 1
+        return self.player.get_rect().colliderect(self.ball.get_rect())
 
     def draw(self):
         """Draw the board, with paddles and ball
         """
         bg_color = pygame.Color("black")
-
         self.screen.fill(bg_color)
 
-        player_one_rect = self.player_one.get_rect()
+        player_rect = self.player.get_rect()
 
         self.ball.update()
         ball_rect = self.ball.get_rect()
+       
+        if self.determine_collision():
+            self.ball.reverse_horizontal_direction()
+            self.player.increment_score()
 
-        pygame.draw.rect(self.screen, self.player_one.color, player_one_rect)
-        pygame.draw.rect(self.screen, pygame.Color("yellow"), self.border_t)
-        pygame.draw.rect(self.screen, pygame.Color("yellow"), self.border_b)
+        pygame.draw.rect(self.screen, self.player.color, player_rect)
+        pygame.draw.rect(self.screen, pygame.Color("yellow"), self.borders['t'])
+        pygame.draw.rect(self.screen, pygame.Color("yellow"), self.borders['b'])
+        pygame.draw.rect(self.screen, pygame.Color("yellow"), self.borders['r'])
 
         pygame.draw.rect(self.screen, self.ball.color, ball_rect)
-        # Blit the ball image on the ball rect
         self.screen.blit(self.ball.get_image(), ball_rect)
 
         pygame.display.flip()
