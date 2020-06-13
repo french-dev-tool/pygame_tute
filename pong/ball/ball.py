@@ -45,27 +45,20 @@ class Ball:
         or the bounds of the board either left or right, or up or down
         """
         old_coords = self.coords
-        # Handle the horizontal movement of the ball
-        if old_coords[0] + self.diameter >= BOARD_WIDTH or old_coords[0] <= 0:
-            # Reverse the direction when we exceed or meet the bounds of the
-            # board either left or right, or up or down
-            self.direction['H'] = -(self.direction['H'])
 
-        # Handle the vertical movement of the ball
-        if (old_coords[1] + self.diameter >= BOARD_HEIGHT - BORDER_THICKNESS
-                or old_coords[1] <= 0 + BORDER_THICKNESS):
-            self.direction['V'] = -(self.direction['V'])
-
-        new_coords = (old_coords[0] + self.direction['H'] *
-                      self.speed[0],
-                      old_coords[1] + self.direction['V'] *
-                      self.speed[1])
+        new_coords = (old_coords[0] + self.direction['H'] * self.speed[0],
+                      old_coords[1] + self.direction['V'] * self.speed[1])
         self.coords = new_coords
 
     def reverse_horizontal_direction(self):
         """Reverses the ball's horizontal direction
         """
         self.direction['H'] = -(self.direction['H'])
+
+    def reverse_vertical_direction(self):
+        """Reverses the ball's vertical direction
+        """
+        self.direction['V'] = -(self.direction['V'])
 
     def get_image(self):
         """Returns a pygame image object of the ball

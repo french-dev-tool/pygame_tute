@@ -1,7 +1,6 @@
 """Main class of the pong game.
 Handles all logic associated with playing the game solo or with an opponent
 """
-import math
 import pygame
 import pygame.locals
 # from pygame import locals as pygame_locals
@@ -12,8 +11,6 @@ from pygame.constants import QUIT, KEYDOWN, KEYUP
 from utils.constants import (
     BOARD_HEIGHT,
     BOARD_WIDTH,
-    BOARD_EDGE_MULTIPLIER,
-    BORDER_THICKNESS,
     FPS
 )
 from paddle.paddle import Paddle
@@ -35,10 +32,9 @@ def setup():
     # pylint: enable=no-member
     clock = pygame.time.Clock()
 
-    screen = pygame.display.set_mode((BOARD_WIDTH, BOARD_HEIGHT))   
+    screen = pygame.display.set_mode((BOARD_WIDTH, BOARD_HEIGHT))
     player = Paddle(player_color)
     ball = Ball()
-
     pygame.display.flip()
     board = Board(screen=screen,
                   player=player,
@@ -48,12 +44,12 @@ def setup():
 
 
 def main():
-    """Handles all logic associated with playing the game solo or with an opponent
+    """Handles logic associated with playing the game solo
     """
     board, clock = setup()
     # Main loop
     while True:
-        ms_elapsed = clock.tick(FPS)
+        clock.tick(FPS)
         for event in pygame.event.get():
             if event.type == QUIT:
                 # pylint: disable=no-member

@@ -17,7 +17,7 @@ class Paddle:
         self.width = 5
         self.height = 50
         self.speed = 15
-        self.coords = (0, 0)
+        self.coords = (0, BORDER_THICKNESS)
         self.score = 0
         self.color = color
 
@@ -33,9 +33,15 @@ class Paddle:
         """
         old_coords = self.coords
         # Update the position of the paddle when new pos is valid
-        new_coords = (old_coords[0], old_coords[1] + direction * self.speed)
-        if 0 + BORDER_THICKNESS < new_coords[1] and new_coords[1] + self.height < BOARD_HEIGHT - BORDER_THICKNESS:
-            self.coords = new_coords
+        new_coords = (0, old_coords[1] + direction * self.speed)
+        # If new coords is less than border thickness, set y to B_T
+        if new_coords[1] <= 0 + BORDER_THICKNESS:   
+            new_coords = (0, BORDER_THICKNESS)
+        # elif new coords > HEIGHT - B_T set y to h - B_T
+        elif new_coords[1] + self.height >= BOARD_HEIGHT - BORDER_THICKNESS:
+            new_coords = (0, BOARD_HEIGHT - BORDER_THICKNESS - self.height)
+        # Set self.coords to new_coords in each situation
+        self.coords = new_coords
 
     def get_rect(self):
         """Gets the paddle's current Rect.
