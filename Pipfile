@@ -6,9 +6,9 @@ verify_ssl = true
 [dev-packages]
 pylint = "*"
 autopep8 = "*"
+setuptools = "*"
 
 [packages]
-numpy = "*"
 pygame = "*"
 
 [requires]

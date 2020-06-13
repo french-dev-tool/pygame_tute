@@ -4,14 +4,12 @@ if it collides with the opposing wall
 """
 from os import getcwd
 from os.path import join, abspath
+from math import floor
 import pygame
 from utils.constants import (
     INITIAL_BALL_RAD,
     INITIAL_BALL_SPEED,
-    INITIAL_BALL_POS,
-    BOARD_WIDTH,
-    BOARD_HEIGHT,
-    BORDER_THICKNESS
+    INITIAL_BALL_POS
 )
 
 
@@ -30,6 +28,8 @@ class Ball:
         self.coords = INITIAL_BALL_POS
         self.diameter = 2 * INITIAL_BALL_RAD
         self.speed = INITIAL_BALL_SPEED
+        # TODO implement speed modifier changes based on difficulty/pickups
+        self.speed_modifier = 0.1
         # V: 1 for down, -1 for up; H: 1 for right, -1 for left
         self.direction = {'V': 1, 'H': 1}
         self.color = (255, 0, 255)
@@ -48,7 +48,7 @@ class Ball:
     def increase_speed(self):
         """Increases the ball's speed
         """
-        new_speed = (self.speed[0] + 3, self.speed[1])
+        new_speed = (self.speed[0] + floor(self.speed_modifier * self.speed[1]), self.speed[1])
         self.speed = new_speed
 
     def reverse_horizontal_direction(self):

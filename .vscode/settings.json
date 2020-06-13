@@ -1,6 +1,7 @@
 {
     "editor.tabSize": 4,
     "editor.folding": true,
+    "editor.hover.delay": 10,
     "editor.formatOnSave": false,
     "editor.formatOnPaste": false,
     "python.pythonPath": "C:\\Users\\rlain\\.virtualenvs\\pygame_tute-ObP3HGBF\\Scripts\\python.exe",
@@ -10,8 +11,4 @@
     "python.formatting.provider": "autopep8",
     "python.linting.pylintCategorySeverity.error": "Hint",
     "python.autoComplete.addBrackets": true,
-    "editor.hover.delay": 10,
-    "python.autoComplete.extraPaths": [
-        "C:\\Users\\rlain\\.virtualenvs\\pygame_tute-ObP3HGBF\\Scripts\\python.exe"
-    ],
 }
