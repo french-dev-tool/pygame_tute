@@ -54,6 +54,7 @@ class Board:
 
         if self.determine_paddle_collision():
             self.ball.reverse_horizontal_direction()
+            self.ball.increase_speed()
             self.player.increment_score()
 
         if self.determine_border_collision(Border('r')):

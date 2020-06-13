@@ -31,8 +31,8 @@ def setup():
     pygame.init()
     # pylint: enable=no-member
     clock = pygame.time.Clock()
-
-    screen = pygame.display.set_mode((BOARD_WIDTH, BOARD_HEIGHT))
+    display = pygame.display
+    screen = display.set_mode((BOARD_WIDTH, BOARD_HEIGHT))
     player = Paddle(player_color)
     ball = Ball()
     pygame.display.flip()
@@ -40,18 +40,20 @@ def setup():
                   player=player,
                   ball=ball)
     board.draw()
-    return board, clock
+    return board, clock, display
 
 
 def main():
     """Handles logic associated with playing the game solo
     """
-    board, clock = setup()
+    board, clock, display = setup()
+    quit_game = False
     # Main loop
     while True:
+        display.set_caption(f'Current Score: {board.player.score}')
         clock.tick(FPS)
         for event in pygame.event.get():
-            if event.type == QUIT:
+            if event.type == QUIT or quit_game:
                 # pylint: disable=no-member
                 pygame.quit()
                 # pylint: enable=no-member
@@ -67,6 +69,10 @@ def main():
                     board.player.move_paddle(1)
                 if key is pygame.locals.K_w:
                     board.player.move_paddle(-1)
+        if board.ball.coords[0] < 0:
+            # End the game if the ball hits the left wall
+            print(f'Congratulations, Your score was {board.player.score}!')
+            quit_game = True
         board.draw()
 
 

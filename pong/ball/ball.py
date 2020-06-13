@@ -38,17 +38,18 @@ class Ball:
                                             (self.diameter, self.diameter))
 
     def update(self):
-        """Updates the position of the ball, and handles the logic for when
-        the ball collides with the edges of the board
-
-        Reverses the direction when the ball's exceeds or meets the borders
-        or the bounds of the board either left or right, or up or down
+        """Updates the position of the ball as a function of the balls current speed
         """
         old_coords = self.coords
-
         new_coords = (old_coords[0] + self.direction['H'] * self.speed[0],
                       old_coords[1] + self.direction['V'] * self.speed[1])
         self.coords = new_coords
+
+    def increase_speed(self):
+        """Increases the ball's speed
+        """
+        new_speed = (self.speed[0] + 3, self.speed[1])
+        self.speed = new_speed
 
     def reverse_horizontal_direction(self):
         """Reverses the ball's horizontal direction
