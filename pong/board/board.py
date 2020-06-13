@@ -11,7 +11,7 @@ border_r_origin = (BOARD_WIDTH - BORDER_THICKNESS, 0 + BORDER_THICKNESS)
 class Board:
     """Board for the player or players to play on as a surface"""
 
-    def __init__(self, screen, player, ball):
+    def __init__(self, screen, player, balls):
         """Initialise the board with height and width specified in utils.constants"""
         self.screen = screen
         self.height = screen.get_height()
@@ -29,47 +29,54 @@ class Board:
                                                        BOARD_HEIGHT - BORDER_THICKNESS)))
         }
         self.player = player
-        self.ball = ball
+        self.balls = balls
 
-    def determine_paddle_collision(self):
+    def determine_paddle_collision(self, ball):
         """Returns true if the ball collides with the paddle
         """
-        return self.player.get_rect().colliderect(self.ball.get_rect())
+        return ball.get_rect().colliderect(self.player.get_rect())
 
-    def determine_border_collision(self, border):
+    def determine_border_collision(self, ball, border):
         """Returns true if the ball collides with specified border
         """
-        return self.ball.get_rect().colliderect(self.borders[border])
+        return ball.get_rect().colliderect(self.borders[border])
+
+    def lost(self):
+        """Returns true if the game is lost, that is if any balls touch the left wall
+        """
+        for ball in self.balls:
+            if ball.coords[0] < 0:
+                return True
+        return False
 
     def draw(self):
         """Draw the board, with paddles and ball
         """
-        bg_color = pygame.Color("black")
-        self.screen.fill(bg_color)
-
+        self.screen.fill(pygame.Color("black"))
         player_rect = self.player.get_rect()
 
-        self.ball.update()
-        ball_rect = self.ball.get_rect()
+        for ball in self.balls:
+            ball.update()
+            ball_rect = ball.get_rect()
 
-        if self.determine_paddle_collision():
-            self.ball.reverse_horizontal_direction()
-            self.ball.increase_speed()
-            self.player.increment_score()
+            if self.determine_paddle_collision(ball):
+                ball.reverse_horizontal_direction()
+                ball.increase_speed()
+                self.player.increment_score()
 
-        if self.determine_border_collision(Border('r')):
-            self.ball.reverse_horizontal_direction()
+            if self.determine_border_collision(ball, Border('r')):
+                ball.reverse_horizontal_direction()
 
-        if (self.determine_border_collision(Border('t'))
-                or self.determine_border_collision(Border('b'))):
-            self.ball.reverse_vertical_direction()
+            if (self.determine_border_collision(ball, Border('t'))
+                    or self.determine_border_collision(ball, Border('b'))):
+                ball.reverse_vertical_direction()
+            pygame.draw.rect(self.screen, ball.color, ball_rect)
+            self.screen.blit(ball.get_image(), ball_rect)
 
         pygame.draw.rect(self.screen, self.player.color, player_rect)
         pygame.draw.rect(self.screen, pygame.Color("yellow"), self.borders[Border('t')])
         pygame.draw.rect(self.screen, pygame.Color("yellow"), self.borders[Border('b')])
         pygame.draw.rect(self.screen, pygame.Color("yellow"), self.borders[Border('r')])
 
-        pygame.draw.rect(self.screen, self.ball.color, ball_rect)
-        self.screen.blit(self.ball.get_image(), ball_rect)
 
         pygame.display.flip()

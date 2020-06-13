@@ -18,16 +18,17 @@ class Ball:
     and last hitter.
     """
 
-    def __init__(self):
-        """Initialises the ball at x, y (0, 0), speed of (0, 0), and a
+    def __init__(self, speed):
+        """Initialises the ball with a speed and a
         radius of INITIAL_BALL_RAD pixels
+        
         Args:
-            board (board): The palying board that the ball belongs to
+            Speed (speed): A tuple containing integer values for (x_speed, y_speed)
         """
 
         self.coords = INITIAL_BALL_POS
         self.diameter = 2 * INITIAL_BALL_RAD
-        self.speed = INITIAL_BALL_SPEED
+        self.speed = speed # Tuple, (x, y) of speed
         # TODO implement speed modifier changes based on difficulty/pickups
         self.speed_modifier = 0.1
         # V: 1 for down, -1 for up; H: 1 for right, -1 for left
