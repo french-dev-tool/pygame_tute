@@ -1,2 +1,6 @@
 *.swp
 **/__pycache__/**
+# Files for pyinstaller builds
+*.spec
+**/dist/**
+**/build/**
