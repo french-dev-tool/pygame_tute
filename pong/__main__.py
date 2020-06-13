@@ -28,6 +28,7 @@ def set_difficulty(value, difficulty):
     """
     print(value, difficulty)
 
+
 def setup():
     """Sets up the game for playing and initialises objects
     """
@@ -42,6 +43,7 @@ def setup():
                   player=player,
                   balls=[ball_one, ball_two])
     return board, clock, display
+
 
 # TODO implement this method properly
 def draw_menu(display):
@@ -61,6 +63,7 @@ def draw_menu(display):
 
     pygame.display.update()
 
+
 def menu(display):
     """Displays the main menu to the user
     """
@@ -79,6 +82,7 @@ def menu(display):
                       or key is pygame.locals.K_ESCAPE
                       or key is pygame.locals.K_p):
                     return False
+
 
 def game_loop(board):
     """Handles the main game loop
@@ -107,6 +111,7 @@ def game_loop(board):
         running = False
     return show_menu, running
 
+
 def main():
     """Handles logic associated with playing the game
     """
@@ -125,6 +130,7 @@ def main():
         display.set_caption(f'Current Score: {board.player.score}')
         clock.tick(FPS)
         show_menu, running = game_loop(board)
+
 
 if __name__ == '__main__':
     pygame.init()

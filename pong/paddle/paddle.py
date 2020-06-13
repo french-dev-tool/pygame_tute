@@ -21,11 +21,13 @@ class Paddle:
         self.score = 0
         self.color = color
 
+
     def increment_score(self):
         """Increments the player's score by one
         """
         self.score = self.score + 1
         print(self.score)
+
 
     def move_paddle(self, direction):
         """Moves the paddle some distance in the vertical axis as long as
@@ -42,6 +44,7 @@ class Paddle:
             new_coords = (0, BOARD_HEIGHT - BORDER_THICKNESS - self.height)
         # Set self.coords to new_coords in each situation
         self.coords = new_coords
+
 
     def get_rect(self):
         """Gets the paddle's current Rect.

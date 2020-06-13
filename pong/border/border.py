@@ -1,3 +1,5 @@
+"""Creates the Border Enum
+"""
 from enum import Enum
 
 

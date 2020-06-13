@@ -23,20 +23,23 @@ class Board:
                                      (BOARD_WIDTH, BORDER_THICKNESS)),
             Border('r'): pygame.Rect(border_r_origin,
                                      (BORDER_THICKNESS,
-                                     BOARD_HEIGHT - BORDER_THICKNESS))
+                                      BOARD_HEIGHT - BORDER_THICKNESS))
         }
         self.player = player
         self.balls = balls
+
 
     def determine_paddle_collision(self, ball):
         """Returns true if the ball collides with the paddle
         """
         return ball.get_rect().colliderect(self.player.get_rect())
 
+
     def determine_border_collision(self, ball, border):
         """Returns true if the ball collides with specified border
         """
         return ball.get_rect().colliderect(self.borders[border])
+
 
     def lost(self):
         """Returns true if the game is lost, that is if any balls touch the left wall
@@ -45,6 +48,7 @@ class Board:
             if ball.coords[0] < 0:
                 return True
         return False
+
 
     def draw(self):
         """Draw the board, with paddles and ball
@@ -74,6 +78,5 @@ class Board:
         pygame.draw.rect(self.screen, pygame.Color("yellow"), self.borders[Border('t')])
         pygame.draw.rect(self.screen, pygame.Color("yellow"), self.borders[Border('b')])
         pygame.draw.rect(self.screen, pygame.Color("yellow"), self.borders[Border('r')])
-
 
         pygame.display.flip()
